@@ -1,6 +1,6 @@
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 
-const { utils } = ethers;
+// const { utils } = ethers;
 
 const DEFAULT_GASLIMIT = 21000;
 // const DEFAULT_GASLIMIT = 200000;
@@ -12,7 +12,7 @@ export function createTransaction(to, value, gasLimit = DEFAULT_GASLIMIT, option
   else if (!(Number(value) > 0)) throw new Error('The transaction value is invalid.');
   else if (isNaN(gasLimit)) gasLimit = DEFAULT_GASLIMIT;
   const gasPrice = DEFAULT_GASPRICE;
-  value = utils.parseEther(value);
+  value = ethers.utils.parseEther(value);
   return { gasPrice, ...options, to, gasLimit, value };
 }
 

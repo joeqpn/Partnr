@@ -1,7 +1,7 @@
 import { wallet as WalletStore } from '@common/stores';
 import { Wallet as WalletUtils, Transaction as TransactionUtils } from '@common/utils';
 import * as Transactions from '../transactions';
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 
 const WALLET_PK = '62384683889eae6de8440eb735856f31bb4f17815888f847c8567b3c87f00be8';
 const DESTINATION_ADDRESS = '0x407428BF09ea7Dac2824A64AfE88171041a02b14';
@@ -30,7 +30,7 @@ describe('TransactionsActions', () => {
     const value = '0.002';
     try {
       const txn = await Transactions.sendEther(wallet, DESTINATION_ADDRESS, value);
-      expect(txn.from).toBe(wallet.getAddress());
+      expect(txn.from).toBe(wallet.address);
       expect(txn.to).toBe(DESTINATION_ADDRESS);
       expect(txn.value.toString()).toBe(ethers.utils.parseEther(value).toString());
       expect(WalletStore.history.length).toBe(1);
@@ -48,7 +48,8 @@ describe('TransactionsActions', () => {
     try {
       await Transactions.sendEther(wallet, {});
       fail('should have thrown an Error.');
-    } catch (e) { expect(e.message).toBe('Invalid destination address'); }
+    // } catch (e) { expect(e.message).toBe('Invalid destination address');}
+  } catch (e) { expect(e.message).toBe('Invalid destination address');}
   });
 
   it.skip('`sendTransaction` should send ether to some address when there are funds available', async function() {
@@ -58,7 +59,7 @@ describe('TransactionsActions', () => {
     let txn = TransactionUtils.createTransaction(DESTINATION_ADDRESS, value);
     try {
       txn = await Transactions.sendTransaction(wallet, txn);
-      expect(txn.from).toBe(wallet.getAddress());
+      expect(txn.from).toBe(wallet.address);
       expect(txn.to).toBe(DESTINATION_ADDRESS);
       expect(txn.value.toString()).toBe(ethers.utils.parseEther(value).toString());
       expect(WalletStore.history.length).toBe(1);

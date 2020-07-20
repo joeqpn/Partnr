@@ -1,4 +1,4 @@
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import * as WalletUtils from '../wallet';
 
 describe('Wallet utils', () => {
@@ -93,7 +93,7 @@ describe('Wallet utils', () => {
     });
 
     it('`reduceBigNumbers` function should return a BigNumber representing the sum of all the BigNumber array elements', function() {
-        const items = [ethers.utils.bigNumberify('1'), ethers.utils.bigNumberify('2'), ethers.utils.bigNumberify('3')];
+        const items = [ethers.BigNumber.from('1'), ethers.BigNumber.from('2'), ethers.BigNumber.from('3')];
         const result = WalletUtils.reduceBigNumbers(items);
         expect(result.toString()).toBe('6');
     });
