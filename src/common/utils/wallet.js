@@ -21,11 +21,8 @@ export function loadWalletFromMnemonics(mnemonics) {
     if (!(mnemonics instanceof Array) && typeof mnemonics !== 'string')
         throw new Error('invalid mnemonic');
     else if (mnemonics instanceof Array)
-        mnemonics = mnemonics.join(' ');
-
-    const wallet = ethers.Wallet.fromMnemonic(mnemonics).connect(PROVIDER);
-    // wallet.provider = PROVIDER;
-  //wallet.getBalance().then(result => console.log(ethers.utils.formatEther(result)));
+      mnemonics = mnemonics.join(' ');
+      const wallet = ethers.Wallet.fromMnemonic(mnemonics).connect(PROVIDER);
     return wallet;
 }
 
