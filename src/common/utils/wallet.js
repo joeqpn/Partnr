@@ -5,18 +5,13 @@ const network = (process.env.NODE_ENV === 'production') ? 'mainnet' : 'rinkeby';
 //     { name: 'mainnet', ensAddress: '0x314159265dd8dbb310642f98f50c066173c1259b', chainId: 1 } :
 //     { name: 'rinkeby', ensAddress: '0xe7410170f87102df0055eb195163a03b7f2bff4a', chainId: 4 };
 
+const PROJECT_ID = process.env.INFURA_PUB_KEY;
+const PROJECT_SECRET = process.env.INFURA_PRIV_KEY;
 
-const PROJECT_ID = 'db7a4bd577ba4c7ab8593520c14d59c4';
-const PROJECT_SECRET = 'bdfa001c048042ef8ab08573cd68e88d'
-// const PROVIDER = providers.getDefaultProvider(network, {'projectId': PROJECT_ID, 'projectSecret': PROJECT_SECRET});
-
-//JPO test
-//const PROVIDER = ethers.getDefaultProvider(network, {infura: PROJECT_ID});
 const PROVIDER = new ethers.providers.InfuraProvider(network, PROJECT_ID);
 // const PROVIDER = new providers.InfuraProvider(network, {projectId: PROJECT_ID, projectSecret: PROJECT_SECRET});
+// const PROVIDER = providers.getDefaultProvider(network, {'projectId': PROJECT_ID, 'projectSecret': PROJECT_SECRET});
 // const PROVIDER = new ethers.providers.EtherscanProvider(network);
-// console.log("PROVDER");
-//PROVIDER.getBalance('0x1789C2551DE5c9eDeCCaE0279CB5cc4e1B981897').then(result => console.log(ethers.utils.formatEther(result)));
 
 export function generateMnemonics() {
     return ethers.utils.entropyToMnemonic(ethers.utils.randomBytes(16)).split(' ');
